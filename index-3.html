@@ -10,10 +10,10 @@
 </head>
 <body>
     <div id="app">
-        <div class="row m-4" >
+        <div class="row m-4" v-show="notCompletedAssignment.length">
             <h2>To do list</h2>
             <ul>
-                <li v-for="item in list.filter(a=>!a.complete)" :key="item.id">
+                <li v-for="item in notCompletedAssignment" :key="item.id">
                     <label>
                         {{item.name}}
                         <input type="checkbox" v-model="item.complete">
@@ -24,10 +24,10 @@
         <!-- the completed tasks will only be shown if there is at least one completed -->
         <!-- v-show will set the div to display: none -->
         <!-- v-if won't render the div until the condition is true -->
-        <div class="row m-4" v-show="list.filter(a => a.complete).length">
+        <div class="row m-4" v-show="completedAssignment.length">
             <h2>Completed tasks</h2>
             <ul>
-                <li v-for="item in list.filter(a => a.complete)" :key="item.id">
+                <li v-for="item in completedAssignment" :key="item.id">
                     <label>
                         {{item.name}}
                         <input type="checkbox" v-model="item.complete">
@@ -47,8 +47,16 @@
                 ]
                 }
             },
+            computed:{
+            completedAssignment(){
+                return this.list.filter(a => a.complete);
+            },
+            notCompletedAssignment(){
+                return this.list.filter(a =>!a.complete);
+            } 
+        }
         };
-
+        
         Vue.createApp(app).mount('#app');
 
     </script>
