@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>To do list</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="row m-4" >
+            <h2>To do list</h2>
+            <ul>
+                <li v-for="item in list.filter(a=>!a.complete)" :key="item.id">
+                    <label>
+                        {{item.name}}
+                        <input type="checkbox" v-model="item.complete">
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!-- the completed tasks will only be shown if there is at least one completed -->
+        <!-- v-show will set the div to display: none -->
+        <!-- v-if won't render the div until the condition is true -->
+        <div class="row m-4" v-show="list.filter(a => a.complete).length">
+            <h2>Completed tasks</h2>
+            <ul>
+                <li v-for="item in list.filter(a => a.complete)" :key="item.id">
+                    <label>
+                        {{item.name}}
+                        <input type="checkbox" v-model="item.complete">
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        let app={
+            data() {
+                return {
+                    list:[
+                    {name:'Go to the gym',complete:false,id:1},
+                    {name:'Finish the X project',complete:false,id:2},
+                    {name:'Read Thus spoke zarathustra',complete:false,id:3}
+                ]
+                }
+            },
+        };
+
+        Vue.createApp(app).mount('#app');
+
+    </script>
+</body>
+</html>
