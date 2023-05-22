@@ -23,6 +23,12 @@
                 greeting: 'Hello Vue!'
             }
         },
+
+        mounted() {
+            setTimeout(()=>{
+                this.greeting = "nooooo"
+            },3000)
+        },
     }).mount('#app');
 
 </script>
