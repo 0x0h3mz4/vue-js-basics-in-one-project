@@ -1,11 +1,14 @@
 
 import todopart from "./todo-part.js";
+import assignmentCreate from "./assignmentCreate.js";
 export default {
-    components: { todopart },
+    components: { todopart, assignmentCreate },
     template: `
     <todopart :assignments="notCompletedAssignment" title="To-do"></todopart>
 
     <todopart :assignments="completedAssignment" title="Completed"></todopart>
+ 
+    <assignmentCreate @add="add"></assignmentCreate>
     `
     ,
     data() {
@@ -25,5 +28,11 @@ export default {
         notCompletedAssignment() {
             return this.list.filter(a => !a.complete);
         }
-    }
+    },
+    methods: {
+        add(data) {
+            this.list.push({ name: data, complete: false, id: this.list.length + 1 });
+            this.newAssignment = '';
+        }
+    },
 }
