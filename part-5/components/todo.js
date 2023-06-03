@@ -13,11 +13,7 @@ export default {
     ,
     data() {
         return {
-            list: [
-                { name: 'Go to the gym', complete: false, id: 1, tag: "health" },
-                { name: 'Finish the X project', complete: false, id: 2, tag: "studies" },
-                { name: 'Read Thus spoke zarathustra', complete: false, id: 3, tag: "side hustle" }
-            ]
+            list: []
         }
     }
     ,
@@ -28,6 +24,13 @@ export default {
         notCompletedAssignment() {
             return this.list.filter(a => !a.complete);
         }
+    },
+    created() {
+        fetch('http://localhost:3001/assignments')
+            .then(response => response.json())
+            .then(list => {
+                this.list = list;
+            });
     },
     methods: {
         add(data) {
