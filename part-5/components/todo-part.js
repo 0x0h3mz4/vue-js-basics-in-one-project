@@ -1,13 +1,14 @@
 import assignment from "./assignment.js";
+import assignmentTag from "./assignmentTag.js";
 export default {
-    components: { assignment },
+    components: { assignment, assignmentTag },
     template: `
     <div class="row m-4" v-show="assignments.length">
             
                 <h2>{{title}} <span>({{assignments.length}})</span></h2>
                 
 
-                <button @click="currenTag = tag" v-for="tag in tags"  class="m-1" :class="{'btn btn-primary' : tag==currenTag}"> {{tag}}</button>
+                <assignmentTag :tags="Alltags" v-model="currenTag" @change="currenTag = $event"></assignmentTag>
                 <ul>
                     <assignment  v-for="item in filteredassignments" :key="item.id" :item="item" ></assignment>
                 </ul>
@@ -15,7 +16,7 @@ export default {
     </div>`,
     data() {
         return {
-            currenTag: ''
+            currenTag: 'all'
         }
     },
     props: {
@@ -29,7 +30,7 @@ export default {
             }
             return this.assignments.filter(a => a.tag == this.currenTag);
         },
-        tags() {
+        Alltags() {
             return ['all', ...new Set(this.assignments.map(a => a.tag))]
         }
     }
