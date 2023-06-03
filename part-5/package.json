@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "concurrently \"npx serve\" \"npx json-server db.json -p 3001\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.1.0",
+    "json-server": "^0.17.3"
+  }
+}
